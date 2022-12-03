@@ -27,9 +27,17 @@ namespace SportStore
 
             using (SportStoreContext db = new SportStoreContext())
             {
-                var a = db.Users.FirstOrDefault();
-                MessageBox.Show("Db connect");
+                if (user != null)
+                {
+                    MessageBox.Show($"{user.RoleNavigation.Name}: {user.Surname} {user.Name} {user.Patronymic}. \r\t");
+
+                }
+                else
+                {
+                    MessageBox.Show("Гость");
+                }
             }
+
         }
     }
 }

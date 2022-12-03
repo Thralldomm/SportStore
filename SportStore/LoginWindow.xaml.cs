@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SportStore.Infrastructure;
 using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 
 namespace SportStore
 {
@@ -64,7 +65,7 @@ namespace SportStore
                     }
                 }
 
-                User user = db.Users.Where(u => u.Login == loginBox.Text && u.Password == passwordBox.Password).FirstOrDefault() as User;
+                User user = db.Users.Where(u => u.Login == loginBox.Text && u.Password == passwordBox.Password).Include(u => u.RoleNavigation).FirstOrDefault() as User;
 
                 // admin
                 if (user != null && verify)
@@ -90,6 +91,13 @@ namespace SportStore
                     }
                 }
             }
+        }
+
+        private void guestButton_Click(object sender, RoutedEventArgs e)
+        {
+            new MainWindow(null).Show();
+            this.Close();
+          
         }
     }
 }
