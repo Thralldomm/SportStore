@@ -46,7 +46,7 @@ namespace SportStore
                 filterUserComboBox.ItemsSource = filtertList.ToList();
 
 
-               
+                countProducts.Text = $"Количество: {db.Products.Count()}";
 
 
                 productlistView.ItemsSource = db.Products.ToList();
@@ -103,6 +103,10 @@ namespace SportStore
                 }
 
                 productlistView.ItemsSource = currentProducts;
+
+
+                countProducts.Text = $"Количество: {currentProducts.Count} из {db.Products.ToList().Count}";
+
             }
         }
 
