@@ -25,6 +25,8 @@ namespace SportStore
         {
             InitializeComponent();
 
+            List<string> sortList = new List<string>() { "По возрастанию цены", "По убыванию цены" };
+            sortUserComboBox.ItemsSource = sortList;
 
             using (SportStoreContext db = new SportStoreContext())
             {
@@ -44,8 +46,7 @@ namespace SportStore
                 filterUserComboBox.ItemsSource = filtertList.ToList();
 
 
-                List<string> sortList = new List<string>() { "По возрастанию цены", "По убыванию цены" };
-
+               
 
 
                 productlistView.ItemsSource = db.Products.ToList();
@@ -89,6 +90,18 @@ namespace SportStore
                 {
                     productlistView.ItemsSource = db.Products.ToList();
                 }
+            }
+        }
+
+        private void searchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            using (SportStoreContext db = new SportStoreContext())
+            {
+                if (searchBox.Text.Length > 0)
+                {
+                    productlistView.ItemsSource = db.Products.Where(u => u.Name.Contains(searchBox.Text) || u.Description.Contains(searchBox.Text)).ToList();
+                }
+
             }
         }
     }
