@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SportStore.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,12 @@ namespace SportStore
         public MainWindow()
         {
             InitializeComponent();
+
+            using (SportStoreContext db = new SportStoreContext())
+            {
+                var a = db.Users.FirstOrDefault();
+                MessageBox.Show("Db connect");
+            }
         }
     }
 }
