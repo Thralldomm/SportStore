@@ -19,15 +19,15 @@ Windows 8+
 ![](https://github.com/Thralldomm/SportStore/blob/main/screenshots/установка1.png?raw=true)
 
 
-####1. Окно для входа 
+#### 1. Окно для входа 
 
 ![](https://github.com/Thralldomm/SportStore/blob/main/screenshots/1%20окно.png?raw=true)
 
-####2. Главное окно и функции сортировки, фильтрации и поиска
+#### 2. Главное окно и функции сортировки, фильтрации и поиска
 
  ![](https://github.com/Thralldomm/SportStore/blob/main/screenshots/2%20окно.png?raw=true)
 
-####3. Окно для добавления новых товаров
+#### 3. Окно для добавления новых товаров
 
 ![](https://github.com/Thralldomm/SportStore/blob/main/screenshots/окно%203.png?raw=true)
 
@@ -35,6 +35,6 @@ Windows 8+
 
 ## Авторы
 
-* **Semenova Amina** - *Initial work* - [Thralldomm](https://github.com/Thralldomm)
+* **Semenova Amina** - [Thralldomm](https://github.com/Thralldomm)
 
 See also the list of [contributors](https://github.com/Thralldomm/SportStore/contributors) who participated in this project.
