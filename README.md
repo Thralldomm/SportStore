@@ -21,7 +21,7 @@ Windows 8+
 
 #### 1. Окно для входа 
 
-![](https://github.com/Thralldomm/SportStore/blob/main/screenshots/1%20окно.png?raw=true)
+![](https://github.com/Thralldomm/SportStore/blob/master/screenshots/1%20окно.png?raw=true)
 
 #### 2. Главное окно и функции сортировки, фильтрации и поиска
 
