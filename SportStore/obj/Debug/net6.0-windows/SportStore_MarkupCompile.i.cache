@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\123\source\repos\SportStore\SportStore\App.xaml
-2-216653475
+3-1716646172
 
-141977332300
+15560366193
 2221721199432
-LoginWindow.xaml;MainWindow.xaml;
+AddProductWindow.xaml;LoginWindow.xaml;MainWindow.xaml;
 
 True
 
