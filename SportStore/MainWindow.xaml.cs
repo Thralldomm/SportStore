@@ -178,5 +178,48 @@ namespace SportStore
         {
             new AddProductWindow().ShowDialog();
         }
+
+
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            using (SportStoreContext dm = new SportStoreContext())
+            {
+
+                var selectedUsers = productlistView.SelectedItems.Cast<Product>().ToList();
+
+                if (MessageBox.Show($"Вы точно хотите удалить {selectedUsers.Count()} объектов", "Внимание!",
+                   MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+
+
+                    try
+                    {
+                        foreach (var user in selectedUsers)
+                        {
+                            dm.Products.Attach(user);
+                        }
+
+                        dm.Products.RemoveRange(selectedUsers);
+                        dm.SaveChanges();
+                        productlistView.ItemsSource = dm.Products.ToList();
+                        MessageBox.Show("Пользователи удалены!");
+
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"{ex.Message}");
+                    }
+
+
+                }
+            }
+
+
+        }
+
     }
 }

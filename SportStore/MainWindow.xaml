@@ -247,6 +247,11 @@
                 <Button Name="addUser" Margin="1"
                             Content="Добавить товар" Height="20" Width="100"
                             Click="addUserButtonClick"/>
+
+
+                <Button Name="DeleteButton" Margin="1"
+                            Content="Удалить товар" Height="20" Width="100"
+                            Click="DeleteButton_Click"/>
             </StackPanel>
 
         </StackPanel>
