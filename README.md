@@ -16,20 +16,25 @@ Windows 8+
 1. Распаковать zip-папку.
 2. Перейти \SportStore\bin\Debug\net6.0-windows, найти exe-файл и нажать на него
 
+![](https://github.com/Thralldomm/SmesharikiFromBD/blob/main/ex1.png?raw=true)
 
-Приведи пример
-```
 
-И повтори
+####1. Окно для входа 
 
-```
-Пока не закончил
-```
+![](https://github.com/Thralldomm/SmesharikiFromBD/blob/main/ex1.png?raw=true)
 
-Завершите пример получением некоторых данных о системе или использования их для небольшой демонстрации
+####2. Главное окно и функции сортировки, фильтрации и поиска
+
+ ![](https://github.com/Thralldomm/SmesharikiFromBD/blob/main/ex1.png?raw=true)
+
+####3. Окно для добавления новых товаров
+
+![](https://github.com/Thralldomm/SmesharikiFromBD/blob/main/ex1.png?raw=true)
+
+
 
 ## Авторы
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/Thralldomm)
+* **Semenova Amina** - *Initial work* - [Thralldomm](https://github.com/Thralldomm)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/Thralldomm/SportStore/contributors) who participated in this project.
