@@ -10,8 +10,11 @@
                                        int consultationTime)
         {
 
+            //превращем consultationTime заданнный как чилсо в минуты
             TimeSpan consultation = TimeSpan.FromMinutes(consultationTime);
 
+
+            //создаем список и заполняем его переданными нам значениями начал занятых промежутков и превращаем их в строки
             List<string> protectIntervals = new List<string> {
 
                 startTimes[0].ToString(),
@@ -22,6 +25,8 @@
 
             };
 
+
+            //создаем список и заполняем его переданными нам значениями продолжительности занятых промежутков (были массивами, стали списками)
             List<int> durations1 = new List<int>{
 
                 durations[0],
@@ -32,10 +37,15 @@
 
             };
 
-            List<string> reserveTime = new List<string>(); // "10:00:00 60"
 
+          
             List<string> Intervals = new List<string>();
             List<string> IntervalsReserve = new List<string>();
+
+
+
+            //в список засовываем начала занятых промежутков и их продолжительности
+            List<string> reserveTime = new List<string>(); // "10:00:00 60"
 
             for (int i = 0; i < protectIntervals.Count; i++)
             {
@@ -44,7 +54,7 @@
 
             Console.WriteLine();
             Console.WriteLine("Резервные интервалы: ");
-
+            //выводим все в консоль
             foreach (string interval in reserveTime)
             {
                 Console.WriteLine(interval);
@@ -52,45 +62,52 @@
 
             Console.WriteLine();
 
+
             while (true)
             {
 
-                // если начальное время не существует в резерве
+                // если в списке начал занятых промежутков нет начала рабочего дня
                 if (!protectIntervals.Contains(beginWorkingTime.ToString()))
                 {
 
                     Console.WriteLine($"{beginWorkingTime:hh\\:mm} не содержится в резерве");
 
                     // если в период консультации есть резерв, то пропустить время для консультации
-                    foreach (string str in protectIntervals)
+                    foreach (string str in protectIntervals) //проходимся по началам занятых временных промежутков
                     {
-                        TimeSpan span = TimeSpan.Parse(str);
+                        TimeSpan span = TimeSpan.Parse(str);  //превращаем каждую строку начал занятых промежутков в тип Время
 
+                        //если начала рабочего дня меньше начала занятого промежутка (если работни кне начинает сразу работать) 
+                        //И
+                        //если начало рабочего дня + необходимое время (30 мин) больше начала занятого промежутка ( Негативно: 8:00 + 30 == 8:30 > 8:20 )
                         bool result = (beginWorkingTime < span) && ((beginWorkingTime + consultation) > span);
 
 
                         if (result == true)
                         {
-                            Console.WriteLine($"{span} находится между {beginWorkingTime:hh\\:mm} и {(beginWorkingTime + consultation):hh\\:mm}");
-                            beginWorkingTime = span;
+                            Console.WriteLine($"{span} находится между {beginWorkingTime:hh\\:mm} и {(beginWorkingTime + consultation):hh\\:mm}");  //8:20 находится между 8 и 8:30 
+                            beginWorkingTime = span;  //8 заменяем на 8:20
                             Console.WriteLine("Выход из цикла for");
-                            Console.WriteLine($"{beginWorkingTime:hh\\:mm}");
-                            break;
+                            Console.WriteLine($"{beginWorkingTime:hh\\:mm}"); //8:20
+                            break; // выходим из цикла
 
                         }
                     }
 
+
+                    //если в началых занятых промежутков нет начала рабочего времени
                     if (!protectIntervals.Contains(beginWorkingTime.ToString()))
                     {
                         // запись в массив разрешенных интервалов
-                        Intervals.Add($"{beginWorkingTime:hh\\:mm}-{(beginWorkingTime + consultation):hh\\:mm}");
+                        Intervals.Add($"{beginWorkingTime:hh\\:mm}-{(beginWorkingTime + consultation):hh\\:mm}");// (8:00)-(8:00 + 30 = 8:30)
                         // обновление начала
-                        beginWorkingTime = beginWorkingTime + consultation;
-                        Console.WriteLine($"Начало: {beginWorkingTime:hh\\:mm}");
+                        beginWorkingTime = beginWorkingTime + consultation;  //8:00 = 8:00+30 = 8:30
+                        Console.WriteLine($"Начало: {beginWorkingTime:hh\\:mm}"); //8:30
                     }
 
                 }
                 else
+                // если в списке начал занятых промежутков есть начала рабочего дня
                 {
                     Console.WriteLine($"{beginWorkingTime:hh\\:mm} содержится в резерве");
                     // если начало существует в резерве
