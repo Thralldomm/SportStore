@@ -25,6 +25,8 @@ namespace SportStore
         {
             InitializeComponent();
 
+           
+
             List<string> sortList = new List<string>() { "По возрастанию цены", "По убыванию цены" };
             sortUserComboBox.ItemsSource = sortList;
 
@@ -52,6 +54,11 @@ namespace SportStore
                 productlistView.ItemsSource = db.Products.ToList();
             }
 
+            if (statusUser.Text != "Гость")
+            {
+                addUser.Visibility = Visibility.Visible;
+                DeleteButton.Visibility = Visibility.Visible;
+            }
         }
 
 
@@ -176,7 +183,49 @@ namespace SportStore
 
         private void addUserButtonClick(object sender, RoutedEventArgs e)
         {
-            new AddProductWindow().ShowDialog();
+            new AddProductWindow(null).ShowDialog();
+        }
+
+
+
+        private bool CanDeleteProduct(List<Product> product)
+        {
+            using (SportStoreContext db = new SportStoreContext())
+            {
+                foreach(Product pr in product)
+                {
+                    // провека наличи оригинального товара в заказе
+                    OrderProduct position = db.OrderProducts.Where(o => o.ProductId == pr.Id).FirstOrDefault() as OrderProduct;
+
+                    if (position is not null)
+                    {
+                        MessageBox.Show($"Товар: {pr.Name} присутствует в товарной позиции заказа {position.OrderId}. \n Товар нельзя удалить!");
+                        return false;
+                    }
+
+                    
+
+                // найдем все связанные товары с данным товаром
+                List<RelatedProduct> rp = db.RelatedProducts.Where(p => p.ProductId == pr.Id).ToList();
+
+                // найдем, существуют ли товарные позиции из нашего списка связанных товаров и самого товара в заказах
+                foreach (RelatedProduct r in rp)
+                {
+                    OrderProduct order = db.OrderProducts.Where(o => o.ProductId == r.RelatedProdutId).FirstOrDefault() as OrderProduct;
+                    if (order is not null)
+                    {
+                        Product p = db.Products.Where(p => p.Id == r.RelatedProdutId).FirstOrDefault() as Product;
+                        MessageBox.Show($"Товар {p.Name} связан с товаром {pr.Name} присутствует в товарной позиции заказа {order.OrderId}. \n Товары нельзя удалить!");
+                        return false;
+                    }
+                }
+
+
+                }
+
+                return true;
+
+            }
         }
 
 
@@ -189,31 +238,36 @@ namespace SportStore
 
                 var selectedUsers = productlistView.SelectedItems.Cast<Product>().ToList();
 
-                if (MessageBox.Show($"Вы точно хотите удалить {selectedUsers.Count()} объектов", "Внимание!",
-                   MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                if (CanDeleteProduct(selectedUsers))
                 {
-
-
-                    try
+                    if (selectedUsers != null)
                     {
-                        foreach (var user in selectedUsers)
+                        if (MessageBox.Show($"Вы точно хотите удалить {selectedUsers.Count()} объектов", "Внимание!",
+                   MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                         {
-                            dm.Products.Attach(user);
+
+
+                            try
+                            {
+                                foreach (var user in selectedUsers)
+                                {
+                                    dm.Products.Attach(user);
+                                }
+
+                                dm.Products.RemoveRange(selectedUsers);
+                                dm.SaveChanges();
+                                productlistView.ItemsSource = dm.Products.ToList();
+                                MessageBox.Show("Пользователи удалены!");
+
+
+
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show($"{ex.Message}");
+                            }
                         }
-
-                        dm.Products.RemoveRange(selectedUsers);
-                        dm.SaveChanges();
-                        productlistView.ItemsSource = dm.Products.ToList();
-                        MessageBox.Show("Пользователи удалены!");
-
-
-
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"{ex.Message}");
-                    }
-
 
                 }
             }
@@ -221,5 +275,15 @@ namespace SportStore
 
         }
 
+       
+        private void EditproductlistView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (statusUser.Text != "Гость")
+            {
+                Product p = (sender as ListView).SelectedItem as Product;
+                new AddProductWindow(p).ShowDialog();
+            }
+               
+        }
     }
 }
