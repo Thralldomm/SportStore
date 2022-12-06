@@ -114,7 +114,8 @@
         <ListView Grid.Row ="1"
 	              x:Name="productlistView"
 	              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                  HorizontalContentAlignment="Center">  
+                  HorizontalContentAlignment="Center"
+                  MouseDoubleClick="EditproductlistView_MouseDoubleClick">  
 
             <ListView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -246,12 +247,13 @@
 
                 <Button Name="addUser" Margin="1"
                             Content="Добавить товар" Height="20" Width="100"
-                            Click="addUserButtonClick"/>
+                            Click="addUserButtonClick" Visibility="Hidden"/>
 
 
                 <Button Name="DeleteButton" Margin="1"
                             Content="Удалить товар" Height="20" Width="100"
-                            Click="DeleteButton_Click"/>
+                            Click="DeleteButton_Click"
+                        Visibility="Hidden"/>
             </StackPanel>
 
         </StackPanel>
